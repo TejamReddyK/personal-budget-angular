@@ -20,7 +20,7 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
     <title>Personal Budget</title>
-    <link rel="stylesheet" href="/pb/main.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
 
@@ -73,9 +73,9 @@
             </article>
 
             <article class="text-box">
-                <h2 id="free">Free</h2>
+                <h2 id="free">Chart</h2>
                 <p>
-                    This app is free!!! And you are the only one holding your data!
+                    <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </article>
         </section>
@@ -88,5 +88,71 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js" integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    //     var data = {
+    //         datasets: [
+    //             {
+    //                 data: [30, 350,90],
+    //                 backgroundColor: [
+    //                     '#ffcd56',
+    //                     '#ff6384',
+    //                     '#36a2eb',
+    //                     '#fd6b19',
+    //                 ],
+    //             }
+    //         ],
+    //         labels: [
+    //             'Eat out',
+    //             'Rent',
+    //             'Groceries'
+    //         ]
+    //     };
+
+    //     function createChart() { 
+    //     var ctx = document.getElementById("myChart").getContext("2d");
+    //     var myPieChart = new Chart(ctx, {
+    //         type : 'pie',
+    //         data: data
+    //     });
+    // }
+    // createChart();
+
+    window.onload = function() {
+    var dataSource = {
+        datasets: [
+            {
+                data: [],
+                backgroundColor: ['#ffcd56', '#ff6384', '#36a2eb', '#fd6b19'],
+            }
+        ],
+        labels: []
+    };
+
+    function createChart() { 
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myPieChart = new Chart(ctx, {
+            type : 'pie',
+            data: dataSource
+        });
+    }
+
+    function getBudget() {
+        axios.get('/budget')
+        .then(function (res){
+            console.log(res.data);
+            for (var i=0; i<res.data.myBudget.length;i++){
+                dataSource.datasets[0].data[i]=res.data.myBudget[i].budget;
+                dataSource.labels[i]=res.data.myBudget[i].title;
+            }
+            createChart();
+        });
+    }
+    getBudget();
+    createChart();
+};
+
+    </script>
 </body>
 </html>
