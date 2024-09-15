@@ -4,29 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- This is an SEO Change: Adding descriptive meta description -->
-    <meta name="description" content="Manage your personal budget with this easy-to-use budget management app. Track spending, get alerts, and stay on track!">
-
-    <!-- This is an SEO Change: Adding Open Graph meta tags for better social sharing -->
-    <meta property="og:title" content="Personal Budget">
-    <meta property="og:description" content="Manage your personal budget with this easy-to-use budget management app. Track spending, get alerts, and stay on track!">
-    <meta property="og:image" content="https://yourwebsite.com/og-image.jpg">
-    <meta property="og:url" content="https://yourwebsite.com">
-
-    <!-- This is an SEO Change: Adding canonical link for SEO -->
-    <link rel="canonical" href="https://yourwebsite.com">
-
-    <!-- This is an A11y Change: Adding favicon for branding -->
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-
     <title>Personal Budget</title>
     <link rel="stylesheet" href="/main.css">
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0 auto;
+            width: 960px;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+
+        path.slice {
+            stroke-width: 2px;
+        }
+
+        polyline {
+            opacity: .3;
+            stroke: black;
+            stroke-width: 2px;
+            fill: none;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- This is a Semantic HTML Change: Using <header> for the header section -->
     <header class="site-header">
-        <!-- This is a Semantic HTML Change: Using <nav> for navigation menu -->
         <nav class="menu" role="navigation">
             <ul>
                 <li><a href="/" aria-label="Homepage">Homepage</a></li>
@@ -35,102 +48,56 @@
                 <li><a href="https://google.com" aria-label="Google" target="_blank" rel="noopener noreferrer">Google</a></li>
             </ul>
         </nav>
-        
-        <!-- This is a Semantic HTML Change: Using <section> for hero content -->
+
         <section class="hero" role="banner">
             <h1>Personal Budget</h1>
             <h2>A personal-budget management app</h2>
         </section>
     </header>
 
-    <!-- This is a Semantic HTML Change: Using <main> for the main content -->
     <main class="container center">
-        <!-- This is an A11y Change: Adding role="region" for better accessibility -->
         <section class="page-area" role="region">
+            <!-- Chart.js Pie Chart -->
             <article class="text-box">
-                <!-- This is an A11y Change: Using <h2> for section titles -->
-                <h2 id="stay-on-track">Stay on Track</h2>
-                <p>
-                    Do you know where you are spending your money? If you really stop to track it down,
-                    you would get surprised! Proper budget management depends on real data... and this
-                    app will help you with that!
-                </p>
-            </article>
-
-            <article class="text-box">
-                <h2 id="alerts">Alerts</h2>
-                <p>
-                    What if your clothing budget ended? You will get an alert. The goal is to never go over the budget.
-                </p>
-            </article>
-
-            <article class="text-box">
-                <h2 id="results">Results</h2>
-                <p>
-                    People who stick to a financial plan, budgeting every expense, get out of debt faster!
-                    They live happier lives since they spend without guilt or fear because they know it’s all accounted for.
-                </p>
-            </article>
-
-            <article class="text-box">
-                <h2 id="free">Chart</h2>
+                <h2 id="chartjs-chart">Chart.js Pie Chart</h2>
                 <p>
                     <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </article>
+
+            <!-- New D3.js Chart Section -->
+            <article class="text-box">
+                <h2 id="d3-chart">D3.js Pie Chart</h2>
+                <button class="randomize">Randomize</button>
+                <div id="d3-chart-container"></div>
+            </article>
         </section>
     </main>
 
-    <!-- This is a Semantic HTML Change: Using <footer> for the footer section -->
     <footer class="site-footer">
         <div class="center">
             <p>All rights reserved &copy; Tejam Reddy Kalam</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js" integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
     <script>
-    //     var data = {
-    //         datasets: [
-    //             {
-    //                 data: [30, 350,90],
-    //                 backgroundColor: [
-    //                     '#ffcd56',
-    //                     '#ff6384',
-    //                     '#36a2eb',
-    //                     '#fd6b19',
-    //                 ],
-    //             }
-    //         ],
-    //         labels: [
-    //             'Eat out',
-    //             'Rent',
-    //             'Groceries'
-    //         ]
-    //     };
-
-    //     function createChart() { 
-    //     var ctx = document.getElementById("myChart").getContext("2d");
-    //     var myPieChart = new Chart(ctx, {
-    //         type : 'pie',
-    //         data: data
-    //     });
-    // }
-    // createChart();
-
-    window.onload = function() {
+    // Shared Data Source for both Chart.js and D3.js
     var dataSource = {
         datasets: [
             {
                 data: [],
-                backgroundColor: ['#ffcd56', '#ff6384', '#36a2eb', '#fd6b19'],
+                backgroundColor: ['#ffcd56', '#ff6384', '#36a2eb', '#fd6b19', '#ababab', '#a03291', '#2910de'],
             }
         ],
         labels: []
     };
 
-    function createChart() { 
+    // Chart.js Pie Chart
+    function createChartJS() { 
         var ctx = document.getElementById("myChart").getContext("2d");
         var myPieChart = new Chart(ctx, {
             type : 'pie',
@@ -138,21 +105,70 @@
         });
     }
 
+    // D3.js Pie Chart
+    var svg = d3.select("#d3-chart-container")
+        .append("svg")
+        .attr("width", 450)
+        .attr("height", 450)
+        .append("g")
+        .attr("transform", "translate(225,225)");
+
+    var width = 450, height = 450, radius = Math.min(width, height) / 2;
+
+    var pie = d3.layout.pie().sort(null).value(function(d) { return d.value; });
+
+    var arc = d3.svg.arc().outerRadius(radius * 0.8).innerRadius(radius * 0.4);
+
+    var color = d3.scale.ordinal()
+        .range(['#ffcd56', '#ff6384', '#36a2eb', '#fd6b19', '#ababab', '#a03291', '#2910de']);
+
+    function updateD3Chart(data) {
+        var pieData = data.map(function(d, i) {
+            return { label: dataSource.labels[i], value: dataSource.datasets[0].data[i] };
+        });
+
+        var slice = svg.selectAll("path.slice").data(pie(pieData));
+
+        slice.enter().append("path")
+            .attr("class", "slice")
+            .style("fill", function(d, i) { return color(i); });
+
+        slice.transition().duration(1000)
+            .attrTween("d", function(d) {
+                this._current = this._current || d;
+                var interpolate = d3.interpolate(this._current, d);
+                this._current = interpolate(0);
+                return function(t) { return arc(interpolate(t)); };
+            });
+
+        slice.exit().remove();
+    }
+
+    // Fetch data from the server
     function getBudget() {
         axios.get('/budget')
         .then(function (res){
-            console.log(res.data);
-            for (var i=0; i<res.data.myBudget.length;i++){
-                dataSource.datasets[0].data[i]=res.data.myBudget[i].budget;
-                dataSource.labels[i]=res.data.myBudget[i].title;
+            for (var i = 0; i < res.data.myBudget.length; i++) {
+                dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+                dataSource.labels[i] = res.data.myBudget[i].title;
             }
-            createChart();
+            createChartJS(); // Update Chart.js
+            updateD3Chart(res.data.myBudget); // Update D3.js
         });
     }
-    getBudget();
-    createChart();
-};
 
+    getBudget(); // Fetch data and update both charts
+
+    // Randomize D3.js Chart Data
+    d3.select(".randomize").on("click", function() {
+        updateD3Chart(randomData()); // Randomizes only the D3.js chart
+    });
+
+    function randomData() {
+        return dataSource.labels.map(function(label, i) {
+            return { label: label, value: Math.random() * 100 };
+        });
+    }
     </script>
 </body>
 </html>
