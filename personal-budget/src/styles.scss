@@ -350,15 +350,7 @@ template {
   display: none;
 }
 
-
-
-
-
-
-
-
-
-* /* Resetting default styles */
+/* Resetting default styles */
 * {
     margin: 0;
     padding: 0;
@@ -373,43 +365,12 @@ body {
     background-size: cover;
 }
 
-/* Header styles */
-.site-header {
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
-.menu {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.menu ul {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.menu li {
-    list-style: none;
-}
-
-.menu a {
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 /* Hero section styles */
 .hero {
     padding: 50px 0;
     background: url('/assets/bg.png') no-repeat center center;
     background-size: cover;
     text-align: center;
-
 }
 
 .hero h1 {
@@ -459,9 +420,3 @@ body {
 .site-footer p {
     margin: 0;
 }
-
-
-
-
-
-
