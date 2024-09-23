@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 import { DataService } from '../data.service'; // Import your DataService
 
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -20,6 +21,7 @@ export class HomepageComponent implements OnInit {
     labels: []
   };
 
+
   constructor(private dataService: DataService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class HomepageComponent implements OnInit {
       }
       this.createChart();
     });
+
   }
 
   createChart() {
